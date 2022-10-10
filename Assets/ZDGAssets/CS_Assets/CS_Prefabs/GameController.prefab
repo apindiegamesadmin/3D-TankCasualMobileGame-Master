@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1000010184669452
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4000011444111808}
+  - component: {fileID: 114000012569146262}
+  m_Layer: 0
+  m_Name: GameController
+  m_TagString: GameController
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4000011444111808
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010184669452}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114000012569146262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010184669452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32ac427ad4dcd9449a8ad70afc6f97fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerObject: {fileID: 0}
+  groundObject: {fileID: 0}
+  groundRepeatDistance: 20
+  streetEdge: 2.5
+  streetEdgeDamage: 10
+  streetEdgeEffect: {fileID: 0}
+  streetEdgeSound: {fileID: 8300000, guid: 0d2e5bbaf40a20544b400c0415a531a2, type: 3}
+  spawnObstacles:
+  - spawnObject: {fileID: 4000013222017146, guid: 88f15237c0383884298f7014743ade84, type: 3}
+    spawnChance: 4
+    spawnGap: 0
+  - spawnObject: {fileID: 4000010437570972, guid: dad03456549188a46b2f8a1c45fe9e10, type: 3}
+    spawnChance: 4
+    spawnGap: 0
+  - spawnObject: {fileID: 4000013324394496, guid: b26f4ceeb46828f4ca45c4964b316765, type: 3}
+    spawnChance: 3
+    spawnGap: 0
+  - spawnObject: {fileID: 4000013324394496, guid: e16ddbc51620a444b9f397d226d53933, type: 3}
+    spawnChance: 2
+    spawnGap: 0
+  - spawnObject: {fileID: 4000013324394496, guid: 918eabf2eb4dfa74391ec36b3fad6350, type: 3}
+    spawnChance: 2
+    spawnGap: 0
+  spawnPickups:
+  - {fileID: 4000013324394496, guid: 8cfadfeb4a1e1cc4d902fb38f416d064, type: 3}
+  - {fileID: 4000013324394496, guid: 2df696fd85ea5e9469478eecd7523dc5, type: 3}
+  spawnPickupRate: 40
+  spawnGap: {x: 1, y: 4}
+  startDelay: 1
+  readyGoEffect: {fileID: 22485230, guid: 11426788c50bf454caecd76c9f6dc0d0, type: 3}
+  turnButton: Fire1
+  loseHealthDelay: 0.3
+  score: 0
+  levelUpEveryScore: 500
+  levelUpSpeedIncrease: 0.1
+  scoreText: {fileID: 0}
+  gameCanvas: {fileID: 0}
+  healthCanvas: {fileID: 0}
+  fuelCanvas: {fileID: 0}
+  pauseCanvas: {fileID: 0}
+  gameOverCanvas: {fileID: 0}
+  mainMenuLevelName: CS_StartMenu
+  soundGameOver: {fileID: 0}
+  soundSourceTag: Sound
+  confirmButton: Submit
+  pauseButton: Cancel
