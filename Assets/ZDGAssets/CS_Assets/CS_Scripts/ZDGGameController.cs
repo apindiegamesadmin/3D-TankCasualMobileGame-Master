@@ -286,7 +286,15 @@ namespace ZombieDriveGame
                     // If we press the turn button, Turn!
                     if (!EventSystem.current.IsPointerOverGameObject())
                     {
-                        if (Input.GetButtonDown(turnButton)) turnDirection *= -1;
+                        //if (Input.GetButtonDown(turnButton)) turnDirection *= -1;
+                        if (Input.GetKeyDown(KeyCode.A))
+                        {
+                            turnDirection *= -1;
+                        }
+                        else if(Input.GetKeyDown(KeyCode.D))
+                        {
+                            turnDirection *= -1;
+                        }
                     }
 
                     // Count down to the next target spawn
