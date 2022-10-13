@@ -37,13 +37,16 @@ namespace ZombieDriveGame
         public void Explode()
         {
             // Go through all the gibs, and throw them in a random direction
-            for ( index = 0; index < gibs.Length; index++ )
+            if(gibs.Length > 0)
             {
-                // Throw the object in a random direction
-                gibs[index].AddForce(new Vector3(Random.Range(-explodePower, explodePower), Random.Range(explodePower * 2, explodePower * 3), Random.Range(-explodePower, explodePower)));
+                for (index = 0; index < gibs.Length; index++)
+                {
+                    // Throw the object in a random direction
+                    gibs[index].AddForce(new Vector3(Random.Range(-explodePower, explodePower), Random.Range(explodePower * 2, explodePower * 3), Random.Range(-explodePower, explodePower)));
 
-                // Give the object a random rotation force
-                gibs[index].AddTorque(new Vector3(Random.Range(-explodePower, explodePower), Random.Range(-explodePower, explodePower), Random.Range(-explodePower, explodePower)));
+                    // Give the object a random rotation force
+                    gibs[index].AddTorque(new Vector3(Random.Range(-explodePower, explodePower), Random.Range(-explodePower, explodePower), Random.Range(-explodePower, explodePower)));
+                }
             }
         }
     }
