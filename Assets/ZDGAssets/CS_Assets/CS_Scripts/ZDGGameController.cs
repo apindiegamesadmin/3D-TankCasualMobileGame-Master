@@ -315,7 +315,7 @@ namespace ZombieDriveGame
                                 Transform newSpawn = Instantiate(spawnObstaclesList[randomSpawn].spawnObject) as Transform;
 
                                 // Place the target at a random position along the height
-                                newSpawn.position = new Vector3(Random.Range(-streetEdge, streetEdge), 0, playerObject.transform.position.z + groundRepeatDistance);
+                                newSpawn.position = new Vector3(Random.Range(-streetEdge, streetEdge), 0, playerObject.transform.position.z + groundRepeatDistance / 5);
 
                                 spawnPickupRateCount--;
 
@@ -328,7 +328,7 @@ namespace ZombieDriveGame
                                 Transform newSpawn = Instantiate(spawnPickups[spawnPickupIndex]) as Transform;
 
                                 // Place the target at a random position along the height
-                                newSpawn.position = new Vector3(Random.Range(-streetEdge, streetEdge), 0, playerObject.transform.position.z + groundRepeatDistance);
+                                newSpawn.position = new Vector3(Random.Range(-streetEdge, streetEdge), 0, playerObject.transform.position.z + groundRepeatDistance / 5);
 
                                 // Go to the next spawn pickup in the list
                                 spawnPickupIndex++;

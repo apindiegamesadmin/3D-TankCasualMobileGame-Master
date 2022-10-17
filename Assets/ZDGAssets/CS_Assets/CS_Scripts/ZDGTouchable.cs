@@ -39,6 +39,8 @@ namespace ZombieDriveGame
 
         [Tooltip("A random rotation given to the object only on the Y axis")]
         public Vector2 rotationRange = new Vector2(0,360);
+
+        public GameObject objectToDestroy;
         
         void Start()
         {
@@ -65,7 +67,14 @@ namespace ZombieDriveGame
                 if (touchEffect) Instantiate(touchEffect, transform.position, transform.rotation);
                 
                 // Remove the object from the game
-                Destroy(gameObject);
+                if(objectToDestroy != null)
+                {
+                    Destroy(this.transform.parent.gameObject);
+                }
+                else
+                {
+                    Destroy(gameObject);
+                }
             }
         }
     }
