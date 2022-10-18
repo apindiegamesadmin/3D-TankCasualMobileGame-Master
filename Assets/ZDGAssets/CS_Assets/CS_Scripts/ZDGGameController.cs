@@ -42,6 +42,9 @@ namespace ZombieDriveGame
         [Tooltip("How far should the player move before the ground object repeats")]
         public float groundRepeatDistance = 20;
 
+        [Tooltip("The distance between the player and the zombies or obstacles to spawn")]
+        public float spawnDistance = 50;
+
         [Tooltip("The edge of the street where there is a railing that bounces the player back")]
         public float streetEdge = 2;
 
@@ -315,7 +318,7 @@ namespace ZombieDriveGame
                                 Transform newSpawn = Instantiate(spawnObstaclesList[randomSpawn].spawnObject) as Transform;
 
                                 // Place the target at a random position along the height
-                                newSpawn.position = new Vector3(Random.Range(-streetEdge, streetEdge), 0, playerObject.transform.position.z + groundRepeatDistance / 5);
+                                newSpawn.position = new Vector3(Random.Range(-streetEdge, streetEdge), 0, playerObject.transform.position.z + spawnDistance);
 
                                 spawnPickupRateCount--;
 
@@ -328,7 +331,7 @@ namespace ZombieDriveGame
                                 Transform newSpawn = Instantiate(spawnPickups[spawnPickupIndex]) as Transform;
 
                                 // Place the target at a random position along the height
-                                newSpawn.position = new Vector3(Random.Range(-streetEdge, streetEdge), 0, playerObject.transform.position.z + groundRepeatDistance / 5);
+                                newSpawn.position = new Vector3(Random.Range(-streetEdge, streetEdge), 0, playerObject.transform.position.z + spawnDistance);
 
                                 // Go to the next spawn pickup in the list
                                 spawnPickupIndex++;
