@@ -27,6 +27,9 @@ namespace ZombieDriveGame.Types
         [Tooltip("The tag of the sound object")]
         public string soundObjectTag = "Sound";
 
+		public Sprite buttonOn;
+		public Sprite buttonOff;
+
         [Tooltip("The source of the sound")]
         public Transform soundObject;
 
@@ -35,6 +38,7 @@ namespace ZombieDriveGame.Types
 	
 		// The index of the current value of the sound
 		internal float currentState = 1;
+		Image buttonImage;
 	
 		/// <summary>
 		/// Awake is called when the script instance is being loaded.
@@ -46,6 +50,7 @@ namespace ZombieDriveGame.Types
 		/// </summary>
 		void Awake()
 		{
+			buttonImage = GetComponent<Image>();
 			if ( !soundObject && soundObjectTag != string.Empty )    soundObject = GameObject.FindGameObjectWithTag(soundObjectTag).transform;
 
 			// Get the current state of the sound from PlayerPrefs
@@ -68,15 +73,11 @@ namespace ZombieDriveGame.Types
 			// Set the sound in the PlayerPrefs
 			PlayerPrefs.SetFloat(playerPref, currentState);
 
-			Color newColor = GetComponent<Image>().material.color;
-
 			// Update the graphics of the button image to fit the sound state
-			if( currentState == 1 )
-				newColor.a = 1;
+			if (currentState == 1)
+				buttonImage.sprite = buttonOn;
 			else
-				newColor.a = 0.5f;
-
-			GetComponent<Image>().color = newColor;
+				buttonImage.sprite = buttonOff;
 
 			// Set the value of the sound state to the source object
 			if( soundObject ) 
