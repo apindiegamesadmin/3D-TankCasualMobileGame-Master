@@ -30,6 +30,9 @@ namespace ZombieDriveGame
         internal Camera cameraObject;
         internal Transform cameraHolder;
 
+        [Tooltip("All avaiable cars")]
+        public GameObject[] cars;
+
         [Tooltip("The player object assigned from the scene")]
         public ZDGPlayer playerObject;
 
@@ -140,7 +143,8 @@ namespace ZombieDriveGame
 		{
             // Activate the pause canvas early on, so it can detect info about sound volume state
             if ( pauseCanvas )    pauseCanvas.gameObject.SetActive(true);
-            playerObject = GameObject.FindGameObjectWithTag("Player").GetComponent<ZDGPlayer>();
+            GameObject car = Instantiate(cars[CarSelectionHandler.instance.carindex]);
+            playerObject = car.GetComponent<ZDGPlayer>();
         }
 
 		/// <summary>
