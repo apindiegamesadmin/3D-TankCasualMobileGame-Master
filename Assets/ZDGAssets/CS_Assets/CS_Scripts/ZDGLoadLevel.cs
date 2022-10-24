@@ -88,7 +88,12 @@ namespace ZombieDriveGame
 			// If there is a sound, play it from the source
 			if ( soundSource && soundLoad )    soundSource.GetComponent<AudioSource>().PlayOneShot(soundLoad);
 
-            switch (index)
+			if (SceneManager.GetActiveScene().buildIndex != 0)
+			{
+				AdManager.instance.ShowInterstitial();
+			}
+
+			switch (index)
             {
 				case 0:
 					// Execute the function after a delay
@@ -119,6 +124,8 @@ namespace ZombieDriveGame
 		public void RestartLevel()
 		{
 			Time.timeScale = 1;
+
+			AdManager.instance.ShowInterstitial();
 
 			// If there is a sound, play it from the source
 			if ( soundSource && soundLoad )    soundSource.GetComponent<AudioSource>().PlayOneShot(soundLoad);
