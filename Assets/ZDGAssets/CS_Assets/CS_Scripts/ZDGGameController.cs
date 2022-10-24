@@ -90,6 +90,7 @@ namespace ZombieDriveGame
 
         [Tooltip("The score of the player")]
         public int score = 0;
+        public int coins = 0;
 
         [Tooltip("How many score the player needs to collect before leveling up")]
         public int levelUpEveryScore = 500;
@@ -100,7 +101,9 @@ namespace ZombieDriveGame
 
         [Tooltip("The score text object which displays the current score of the player")]
         public Transform scoreText;
-		internal int highScore = 0;
+        public Transform coinsText;
+
+        internal int highScore = 0;
 		internal int scoreMultiplier = 1;
         
         // Various canvases for the UI
@@ -137,6 +140,7 @@ namespace ZombieDriveGame
 		{
             // Activate the pause canvas early on, so it can detect info about sound volume state
             if ( pauseCanvas )    pauseCanvas.gameObject.SetActive(true);
+            playerObject = GameObject.FindGameObjectWithTag("Player").GetComponent<ZDGPlayer>();
         }
 
 		/// <summary>
@@ -522,6 +526,18 @@ namespace ZombieDriveGame
                 increaseCount -= levelUpEveryScore;
 
                 LevelUp();
+            }
+        }
+
+        public void AddCoin(int changeValue)
+        {
+            // Change the score value
+            coins += changeValue;
+
+            //Update the score text
+            if (coinsText)
+            {
+                coinsText.GetComponent<Text>().text = coins.ToString();
             }
         }
 

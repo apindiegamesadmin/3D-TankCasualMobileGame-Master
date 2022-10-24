@@ -81,23 +81,36 @@ namespace ZombieDriveGame
 		/// Loads the level.
 		/// </summary>
 		/// <param name="levelName">Level name.</param>
-		public void LoadLevel()
+		public void LoadLevel(int index)
 		{
 			Time.timeScale = 1;
 
 			// If there is a sound, play it from the source
 			if ( soundSource && soundLoad )    soundSource.GetComponent<AudioSource>().PlayOneShot(soundLoad);
 
-			// Execute the function after a delay
-			Invoke("ExecuteLoadLevel", loadDelay);
+            switch (index)
+            {
+				case 0:
+					// Execute the function after a delay
+					Invoke("MainMenu", loadDelay);
+					break;
+				case 1:
+					// Execute the function after a delay
+					Invoke("GameLevel", loadDelay);
+					break;
+            }
 		}
 
 		/// <summary>
 		/// Executes the Load Level function
 		/// </summary>
-		void ExecuteLoadLevel()
+		void GameLevel()
 		{
-			SceneManager.LoadScene(levelName);
+			SceneManager.LoadScene(1);
+		}
+		void MainMenu()
+		{
+			SceneManager.LoadScene(0);
 		}
 
 		/// <summary>
