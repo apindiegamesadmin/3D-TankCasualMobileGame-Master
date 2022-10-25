@@ -16,6 +16,15 @@ public class CarSelectionManager : MonoBehaviour
         selectText.text = "Selected";
     }
 
+    public void RestoreSelectedCar()
+    {
+        foreach (GameObject car in cars)
+        {
+            car.SetActive(false);
+        }
+        cars[selectedIndex].SetActive(true);
+    }
+
     public void SwitchCars(bool left)
     {
         foreach (GameObject car in cars)
