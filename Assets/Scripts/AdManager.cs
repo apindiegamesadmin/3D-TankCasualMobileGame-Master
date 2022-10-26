@@ -19,6 +19,7 @@ public class AdManager : MonoBehaviour
     [Header("Interstitial Ads")]
     [SerializeField] UnityEvent OnLoadedInAd;
     [SerializeField] UnityEvent OnFailedToLoadInAd;
+    [SerializeField] UnityEvent OnOpenInAd;
     [SerializeField] UnityEvent OnShowInAd;
     [SerializeField] UnityEvent OnFailedToShowInAd;
     [SerializeField] UnityEvent OnCloseInAd;
@@ -121,7 +122,7 @@ public class AdManager : MonoBehaviour
         // Initialize an InterstitialAd.
         this.interstitial = new InterstitialAd(adUnitId);
 
-        /*// Called when an ad request has successfully loaded.
+        // Called when an ad request has successfully loaded.
         this.interstitial.OnAdLoaded += (sender, args) =>
         {
             StartCoroutine(DelayBeforeEvent(OnLoadedInAd));
@@ -135,7 +136,7 @@ public class AdManager : MonoBehaviour
         this.interstitial.OnAdOpening += (sender, args) =>
         {
             StartCoroutine(DelayBeforeEvent(OnOpenInAd));
-        };*/
+        };
         // Called when an ad is failed to shown.
         this.interstitial.OnAdFailedToShow += (sender, args) =>
         {
@@ -230,7 +231,8 @@ public class AdManager : MonoBehaviour
 
     IEnumerator DelayShowInterstial()
     {
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForEndOfFrame();
+        //yield return new WaitForSeconds(0.3f);
         if (this.interstitial.IsLoaded())
         {
             this.interstitial.Show();
