@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class AIDetector : MonoBehaviour
@@ -7,8 +8,6 @@ public class AIDetector : MonoBehaviour
     [Range(0.5f, 15)]
     [SerializeField]
     private float viewRadius = 11;
-
-    [SerializeField] Vector2 boxSize;
 
     [SerializeField]
     private float detectionCheckDelay = 0.1f;
@@ -50,12 +49,27 @@ public class AIDetector : MonoBehaviour
 
     private bool CheckTargetVisible()
     {
-        var result = Physics2D.Raycast(transform.parent.position, Target.position - transform.parent.position, viewRadius, visibilityLayer);
-        if (result.collider != null)
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Target.position - transform.position, out hit, viewRadius, visibilityLayer))
         {
-            return (playerLayerMask & (1 << result.collider.gameObject.layer)) != 0;
+            Debug.DrawRay(transform.position, Target.position - transform.position * hit.distance, Color.yellow);
+            Debug.Log("Did Hit");
+            if (hit.collider != null)
+            {
+                return (playerLayerMask & (1 << hit.collider.gameObject.layer)) != 0;
+            }
+            else
+            {
+                return false;
+            }
         }
         return false;
+        //var result = Physics2D.Raycast(transform.position, Target.position - transform.position, viewRadius, visibilityLayer);
+        //if (result.collider != null)
+        //{
+        //    return (playerLayerMask & (1 << result.collider.gameObject.layer)) != 0;
+        //}
+        //return false;
     }
 
     private void DetectTarget()
@@ -76,11 +90,24 @@ public class AIDetector : MonoBehaviour
 
     private void CheckIfPlayerInRange()
     {
-        Collider2D collision = Physics2D.OverlapCircle(transform.position, viewRadius, playerLayerMask);
+        Collider[] collisions = Physics.OverlapSphere(transform.position, viewRadius, playerLayerMask);
 
-        if (collision != null)
+        Collider closest = null;
+        float distance = Mathf.Infinity;
+        Vector3 position = transform.position;
+        foreach (Collider enemy in collisions)
         {
-            Target = collision.transform;
+            Vector3 diff = enemy.transform.position - position;
+            float curDistance = diff.sqrMagnitude;
+            if (curDistance < distance)
+            {
+                closest = enemy;
+                distance = curDistance;
+            }
+        }
+        if(closest != null)
+        {
+            Target = closest.transform;
         }
     }
 

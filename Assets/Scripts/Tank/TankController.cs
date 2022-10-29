@@ -5,23 +5,25 @@ using UnityEngine;
 
 public class TankController : MonoBehaviour
 {
-    public AimTurret[] aimTurret;
-    public List<Turret> turrets;
+    public AimTurret aimTurret;
+    public Turret turret;
     public bool canShoot = true;
-    public bool canMove = true;
+    AIDetector aiDetector;
 
 
     private void Awake()
     {
-        if (aimTurret == null || aimTurret.Length == 0)
-        {
-            aimTurret = GetComponentsInChildren<AimTurret>();
-        }
+        aimTurret = GetComponent<AimTurret>();
+        turret = GetComponentInChildren<Turret>();
+        aiDetector = GetComponent<AIDetector>();
+    }
 
-        if(turrets == null || turrets.Count == 0)
+    private void Update()
+    {
+        if (aiDetector.TargetVisible && aiDetector.Target != null)
         {
-            Turret[] turrent = GetComponentsInChildren<Turret>();
-            turrets = turrent.ToList<Turret>();
+            HandleTurretMovement(aiDetector.Target.position);
+            HandleShoot();
         }
     }
 
@@ -29,19 +31,13 @@ public class TankController : MonoBehaviour
     {
         if (canShoot)
         {
-            foreach (var turret in turrets)
-            {
-                turret.Shoot();
-            }
+            turret.Shoot();
         }
 
     }
 
-    public void HandleTurretMovement(Vector2 pointerPosition)
+    public void HandleTurretMovement(Vector3 pointerPosition)
     {
-        foreach(AimTurret turrent in aimTurret)
-        {
-            turrent.Aim(pointerPosition);
-        }
+        aimTurret.Aim(pointerPosition);
     }
 }

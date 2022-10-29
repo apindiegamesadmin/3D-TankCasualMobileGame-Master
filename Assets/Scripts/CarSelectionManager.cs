@@ -1,35 +1,39 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CarSelectionManager : MonoBehaviour
 {
-    public GameObject[] cars;
+    public Car[] cars;
     public Text selectText;
+    public GameObject price;
     static int index = 0;
     int selectedIndex = 0;
 
     void Start()
     {
-        cars[index].SetActive(true);
+        //cars[index].car.SetActive(true);
+        RestoreSelectedCar();
         selectText.text = "Selected";
     }
 
     public void RestoreSelectedCar()
     {
-        foreach (GameObject car in cars)
+        foreach (Car car in cars)
         {
-            car.SetActive(false);
+            car.car.SetActive(false);
         }
-        cars[selectedIndex].SetActive(true);
+        cars[selectedIndex].car.SetActive(true);
     }
 
     public void SwitchCars(bool left)
     {
-        foreach (GameObject car in cars)
+        foreach (Car car in cars)
         {
-            car.SetActive(false);
+            car.car.SetActive(false);
         }
 
         if (left)
@@ -55,14 +59,25 @@ public class CarSelectionManager : MonoBehaviour
             }
         }
 
-        cars[index].SetActive(true);
-        if(index == selectedIndex)
+        cars[index].car.SetActive(true);
+        if (cars[index].owned)
         {
-            selectText.text = "Selected";
+            selectText.gameObject.SetActive(true);
+            price.SetActive(false);
+            if (index == selectedIndex)
+            {
+                selectText.text = "Selected";
+            }
+            else
+            {
+                selectText.text = "Select";
+            }
         }
         else
         {
-            selectText.text = "Select";
+            selectText.gameObject.SetActive(false);
+            price.SetActive(true);
+            price.GetComponentInChildren<TextMeshProUGUI>().text = cars[index].price;
         }
     }
 
@@ -70,6 +85,25 @@ public class CarSelectionManager : MonoBehaviour
     {
         selectedIndex = index;
         CarSelectionHandler.instance.carindex = index;
-        selectText.text = "Selected";
+        if (cars[index].owned)
+        {
+            selectText.text = "Selected";
+        }
+        else
+        {
+            selectText.gameObject.SetActive(true);
+            price.SetActive(false);
+            //Reduce coin amount
+            cars[index].owned = true;
+            selectText.text = "Select";
+        }
     }
+}
+
+[Serializable]
+public class Car
+{
+    public GameObject car;
+    public string price;
+    public bool owned;
 }
