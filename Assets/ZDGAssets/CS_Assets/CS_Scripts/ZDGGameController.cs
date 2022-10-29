@@ -18,6 +18,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using ZombieDriveGame.Types;
+using TMPro;
 
 namespace ZombieDriveGame
 {
@@ -394,7 +395,8 @@ namespace ZombieDriveGame
             if ( playerObject )
             {
                 // Update the fuel bar
-                fuelCanvas.GetComponent<Image>().fillAmount = playerObject.fuel / playerObject.fuelMax;
+                fuelCanvas.GetComponentInChildren<Slider>().value = playerObject.fuel / playerObject.fuelMax;
+                Debug.Log("Fuel is: " + fuelCanvas.GetComponentInChildren<Slider>().value);
 
                 // Time's up!
                 if ( playerObject.fuel <= 0 )
@@ -507,7 +509,7 @@ namespace ZombieDriveGame
             if (healthCanvas)
             {
                 // Update the health bar based on the health we have
-                healthCanvas.GetComponent<Image>().fillAmount = playerObject.health / playerObject.healthMax;
+                healthCanvas.GetComponentInChildren<Slider>().value = playerObject.health / playerObject.healthMax;
 
                 // Play the animation of the health icon
                 if (healthCanvas.GetComponent<Animation>()) healthCanvas.GetComponent<Animation>().Play();
@@ -526,7 +528,7 @@ namespace ZombieDriveGame
             //Update the score text
             if (scoreText)
             {
-                scoreText.GetComponent<Text>().text = score.ToString();
+                scoreText.GetComponent<TextMeshProUGUI>().text = score.ToString();
 
                 // Play the score object animation
                 if (scoreText.GetComponent<Animation>()) scoreText.GetComponent<Animation>().Play();
@@ -552,7 +554,7 @@ namespace ZombieDriveGame
             //Update the score text
             if (coinsText)
             {
-                coinsText.GetComponent<Text>().text = coins.ToString();
+                coinsText.GetComponent<TextMeshProUGUI>().text = coins.ToString();
             }
         }
 

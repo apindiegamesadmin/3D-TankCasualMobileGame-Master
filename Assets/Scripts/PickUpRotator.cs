@@ -5,8 +5,10 @@ using UnityEngine;
 public class PickUpRotator : MonoBehaviour
 {
     public float speed = 100f;
+    public float angle;
     void Update()
     {
-        transform.Rotate(new Vector3(0, speed * Time.deltaTime, 0));
+        angle += speed * Time.deltaTime;
+        transform.localRotation = Quaternion.Euler(0, 0, angle);
     }
 }
