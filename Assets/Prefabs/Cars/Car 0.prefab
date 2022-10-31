@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 170425678}
   - component: {fileID: 170425681}
   - component: {fileID: 170425680}
-  - component: {fileID: 170425679}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -50,7 +49,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 170425677}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -84,19 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &170425679
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 170425677}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &535982789
 GameObject:
   m_ObjectHideFlags: 0
@@ -106,8 +92,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 535982790}
-  - component: {fileID: 535982792}
-  - component: {fileID: 535982791}
   m_Layer: 0
   m_Name: Gun 0
   m_TagString: Untagged
@@ -131,47 +115,6 @@ Transform:
   m_Father: {fileID: 904514221}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &535982792
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 535982789}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 472d81ff06ba9624ca5b7262d91e9401, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectToPool: {fileID: 0}
-  poolSize: 10
-  spawnedObjectsParent: {fileID: 0}
-  alwaysDestroy: 0
---- !u!114 &535982791
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 535982789}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44df6a29352e5274288f6542629a4275, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  turretBarrels:
-  - {fileID: 535982790}
-  turretData: {fileID: 11400000, guid: 1f468d128781dcf429cc9217114513f8, type: 2}
-  bulletPoolCount: 10
-  OnShoot:
-    m_PersistentCalls:
-      m_Calls: []
-  OnCantShoot:
-    m_PersistentCalls:
-      m_Calls: []
-  OnReloading:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &904514220
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,9 +124,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 904514221}
-  - component: {fileID: 904514222}
-  - component: {fileID: 904514223}
-  - component: {fileID: 904514224}
   m_Layer: 0
   m_Name: Weapons
   m_TagString: Untagged
@@ -207,57 +147,6 @@ Transform:
   m_Father: {fileID: 6808552041489502467}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &904514222
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 904514220}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8ce8b0eaf21bde4c96ba63c003b3f1b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  viewRadius: 5
-  detectionCheckDelay: 0.1
-  target: {fileID: 0}
-  playerLayerMask:
-    serializedVersion: 2
-    m_Bits: 64
-  visibilityLayer:
-    serializedVersion: 2
-    m_Bits: 192
-  <TargetVisible>k__BackingField: 0
---- !u!114 &904514223
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 904514220}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1788c2d3ee9a07d4fb826934591849ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  turretRotationSpeed: 150
---- !u!114 &904514224
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 904514220}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 752e4003d871430449e0981e8a7132cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aimTurret: {fileID: 0}
-  turret: {fileID: 0}
-  canShoot: 1
-  canMove: 1
 --- !u!1 &6808552040878632546
 GameObject:
   m_ObjectHideFlags: 0
