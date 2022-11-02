@@ -39,13 +39,13 @@ namespace ZombieDriveGame
 		/// </summary>
 		void Start()
 		{
-			if( playOnStart == true )    PlaySound(sound);
+			if( playOnStart == true )    PlaySound();
 		}
 	
         /// <summary>
 		/// Plays the sound
 		/// </summary>
-		public void PlaySound(AudioClip sound)
+		public void PlaySound()
         {
             // If there is a sound source tag and audio to play, play the sound from the audio source based on its tag
             if (soundSourceTag != string.Empty && sound)

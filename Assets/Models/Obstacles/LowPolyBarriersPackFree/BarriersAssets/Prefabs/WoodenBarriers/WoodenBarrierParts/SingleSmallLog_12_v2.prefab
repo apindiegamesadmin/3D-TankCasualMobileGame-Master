@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1156986432197854842}
   - component: {fileID: 5648443208254423233}
   - component: {fileID: -946975544576347577}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SingleSmallLog_12_v2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,6 +119,7 @@ MonoBehaviour:
   functionTarget: GameController
   touchEffect: {fileID: 481794, guid: 6175a6bf46a298a44ad83caa30bac5e2, type: 3}
   rotationRange: {x: 0, y: 360}
+  objectToDestroy: {fileID: 0}
 --- !u!114 &5648443208254423233
 MonoBehaviour:
   m_ObjectHideFlags: 0

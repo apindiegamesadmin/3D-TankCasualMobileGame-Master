@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7626055170654902041}
   - component: {fileID: 3195659347054071540}
   - component: {fileID: -437041788709884172}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SandBagWall_04_v2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,6 +119,7 @@ MonoBehaviour:
   functionTarget: GameController
   touchEffect: {fileID: 481794, guid: 6175a6bf46a298a44ad83caa30bac5e2, type: 3}
   rotationRange: {x: 0, y: 360}
+  objectToDestroy: {fileID: 0}
 --- !u!114 &3195659347054071540
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: -108388372382593771}
   - component: {fileID: 2589786109021206757}
   - component: {fileID: 7264569234998007040}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: MetalFence_23_v1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -146,6 +146,7 @@ MonoBehaviour:
   functionTarget: GameController
   touchEffect: {fileID: 481794, guid: 6175a6bf46a298a44ad83caa30bac5e2, type: 3}
   rotationRange: {x: 0, y: 360}
+  objectToDestroy: {fileID: 0}
 --- !u!114 &2589786109021206757
 MonoBehaviour:
   m_ObjectHideFlags: 0

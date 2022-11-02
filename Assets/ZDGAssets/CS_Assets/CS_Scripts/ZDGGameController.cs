@@ -39,6 +39,7 @@ namespace ZombieDriveGame
 
         // The turning direction of the player
         internal float turnDirection = 0;
+        public float steering = 0;
 
         [Tooltip("The ground object that repeats under the player while he is moving")]
         public Transform groundObject;
@@ -138,7 +139,8 @@ namespace ZombieDriveGame
 		// A general use index
 		internal int index = 0;
 
-		//public Transform slowMotionEffect;
+        //public Transform slowMotionEffect;
+        VariableJoystick moveJoyStick;
 
 		void Awake()
 		{
@@ -157,6 +159,7 @@ namespace ZombieDriveGame
 		/// </summary>
 		void Start()
 		{
+            moveJoyStick = GameObject.FindGameObjectWithTag("MoveJoyStick").GetComponent<VariableJoystick>();
             // If the camera is not assigned yet, assign it and set the camera holder too
             if (cameraObject == null)
             {
@@ -276,7 +279,10 @@ namespace ZombieDriveGame
                         playerObject.transform.Translate(Vector3.forward * Time.deltaTime * playerObject.speed, Space.Self);
 
                         // Rotate the player to the correct angle
-                        if ( playerObject.transform.eulerAngles.y != turnDirection ) playerObject.transform.eulerAngles = Vector3.up * Mathf.LerpAngle(playerObject.transform.eulerAngles.y, turnDirection, Time.deltaTime * playerObject.turnSpeed);//  Vector3.RotateTowards(playerObject.transform.eulerAngles, Vector3.up * turnDirection, Time.deltaTime * playerObject.turnSpeed, 0.0F);
+                        float angle = Mathf.Atan2(moveJoyStick.Direction.x, moveJoyStick.Direction.y) * Mathf.Rad2Deg;
+                        angle = Mathf.Clamp(angle, -45, 45);
+                        playerObject.transform.rotation = Quaternion.Euler(new Vector3(0, angle, 0));
+                        //if ( playerObject.transform.eulerAngles.y != turnDirection ) playerObject.transform.eulerAngles = Vector3.up * Mathf.LerpAngle(playerObject.transform.eulerAngles.y, turnDirection, Time.deltaTime * playerObject.turnSpeed);//  Vector3.RotateTowards(playerObject.transform.eulerAngles, Vector3.up * turnDirection, Time.deltaTime * playerObject.turnSpeed, 0.0F);
 
                         // If the player touches the edges of the street, bounce it back
                         if ( playerObject.transform.position.x > streetEdge || playerObject.transform.position.x < -streetEdge ) BounceOffRail();
@@ -296,29 +302,29 @@ namespace ZombieDriveGame
                     if (loseHealthDelayCount > 0) loseHealthDelayCount -= Time.deltaTime;
 
                     // If we press the turn button, Turn!
-                    if (!EventSystem.current.IsPointerOverGameObject())
-                    {
-                        //if (Input.GetButtonDown(turnButton)) turnDirection *= -1;
-                        if (Input.GetKeyDown(KeyCode.A))
-                        {
-                            turnDirection *= -1;
-                        }
-                        else if(Input.GetKeyDown(KeyCode.D))
-                        {
-                            turnDirection *= -1;
-                        }
+                    //if (!EventSystem.current.IsPointerOverGameObject())
+                    //{
+                    //    //if (Input.GetButtonDown(turnButton)) turnDirection *= -1;
+                    //    if (Input.GetKeyDown(KeyCode.A))
+                    //    {
+                    //        turnDirection *= -1;
+                    //    }
+                    //    else if(Input.GetKeyDown(KeyCode.D))
+                    //    {
+                    //        turnDirection *= -1;
+                    //    }
 
-                        //Mobile Input
-                        if (Input.touchCount > 0)
-                        {
-                            Touch touch = Input.GetTouch(0);
+                    //    //Mobile Input
+                    //    if (Input.touchCount > 0)
+                    //    {
+                    //        Touch touch = Input.GetTouch(0);
 
-                            if (touch.phase == TouchPhase.Began)
-                            {
-                                turnDirection *= -1;
-                            }
-                        }
-                    }
+                    //        if (touch.phase == TouchPhase.Began)
+                    //        {
+                    //            turnDirection *= -1;
+                    //        }
+                    //    }
+                    //}
 
                     // Count down to the next target spawn
                     if ( isSpawning == true )
@@ -396,7 +402,6 @@ namespace ZombieDriveGame
             {
                 // Update the fuel bar
                 fuelCanvas.GetComponentInChildren<Slider>().value = playerObject.fuel / playerObject.fuelMax;
-                Debug.Log("Fuel is: " + fuelCanvas.GetComponentInChildren<Slider>().value);
 
                 // Time's up!
                 if ( playerObject.fuel <= 0 )
@@ -653,6 +658,22 @@ namespace ZombieDriveGame
 				}
 			}
 		}
+
+        public void Move(bool left)
+        {
+            float angle = 0;
+            steering += 0.1f;
+            if (left)
+            {
+                angle = Mathf.Atan2(steering, 0) * Mathf.Rad2Deg;
+            }
+            else
+            {
+                angle = Mathf.Atan2(-steering, 0) * Mathf.Rad2Deg;
+            }
+            angle = Mathf.Clamp(angle, -45, 45);
+            playerObject.transform.rotation = Quaternion.Euler(new Vector3(0, angle, 0));
+        }
 		
 		/// <summary>
 		/// Restart the current level
