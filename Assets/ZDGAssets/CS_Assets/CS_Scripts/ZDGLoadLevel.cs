@@ -111,10 +111,12 @@ namespace ZombieDriveGame
 		/// </summary>
 		void GameLevel()
 		{
+			Time.timeScale = 1;
 			SceneManager.LoadScene(1);
 		}
 		void MainMenu()
 		{
+			Time.timeScale = 1;
 			SceneManager.LoadScene(0);
 		}
 
