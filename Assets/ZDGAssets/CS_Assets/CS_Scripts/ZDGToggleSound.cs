@@ -89,7 +89,7 @@ namespace ZombieDriveGame.Types
 		/// </summary>
 		public void ToggleSound()
 		{
-			currentState = 1 - currentState;
+			currentState = 1 - Mathf.Round(currentState);
 		
 			SetSound();
 		}
