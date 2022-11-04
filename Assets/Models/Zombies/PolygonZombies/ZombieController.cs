@@ -7,7 +7,6 @@ public class ZombieController : MonoBehaviour
 {
     [SerializeField] ZombieAIBehaviour zombieAIBehaviour;
 
-    public Transform hitEffect;
     public int maxInt;
     public GameObject[] zombies;
     [Tooltip("The function that runs when this object is touched by the target")]
@@ -15,6 +14,8 @@ public class ZombieController : MonoBehaviour
 
     [Tooltip("The parameter that will be passed with the function")]
     public float functionParameter = 100;
+
+    Transform target;
 
     AIDetector aiDetector;
     Animator animator;
@@ -31,43 +32,47 @@ public class ZombieController : MonoBehaviour
         }
         int randIndex = Random.Range(0, zombies.Length);
         zombies[randIndex].SetActive(true);
+
+        float index = Random.Range(0.0f, 1.0f);
+        animator.SetFloat("AttackIndex", index);
+        index = Random.Range(0.0f, 1.0f);
+        animator.SetFloat("RunIndex", index);
     }
 
-    private void Update()
+    private void LateUpdate()
     {
-        if (aiDetector.TargetVisible && aiDetector.Target != null)
+        if (aiDetector.TargetVisible && aiDetector.Target != null && target == null)
         {
-            float distance = Vector3.Distance(transform.position,aiDetector.Target.position);
-            if(distance <= 2f)
+            target = aiDetector.Target;
+            float distance = Vector3.Distance(transform.position, target.position);
+            animator.SetBool("Attack", false);
+            animator.SetBool("Run", true);
+            zombieAIBehaviour.Run(this, aiDetector);
+        }
+        else if(target != null)
+        {
+            target = aiDetector.Target;
+            float distance = Vector3.Distance(transform.position, target.position);
+            if (Mathf.Abs(distance) <= 5f)
             {
                 animator.SetBool("Attack", true);
                 animator.SetBool("Run", false);
-                float index = Random.Range(0.0f, 1.0f);
-                animator.SetFloat("AttackIndex", index);
                 zombieAIBehaviour.Attack(this, aiDetector);
             }
             else
             {
                 animator.SetBool("Attack", false);
                 animator.SetBool("Run", true);
-                float index = Random.Range(0.0f, 1.0f);
-                animator.SetFloat("RunIndex", index);
                 zombieAIBehaviour.Run(this, aiDetector);
             }
+            animator.SetBool("Attack", false);
+            animator.SetBool("Run", true);
+            zombieAIBehaviour.Run(this, aiDetector);
         }
-        else
+        else 
         {
             animator.SetBool("Attack", false);
             animator.SetBool("Run", false);
-        }
-    }
-
-    public void Hit()
-    {
-        hitEffect.GetComponent<ZDGPlaySound>().PlaySound();
-        foreach(Transform blood in hitEffect)
-        {
-            blood.GetComponent<ParticleSystem>().Play();
         }
     }
 

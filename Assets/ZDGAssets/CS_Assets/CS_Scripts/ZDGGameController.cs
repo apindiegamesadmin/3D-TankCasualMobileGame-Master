@@ -144,6 +144,7 @@ namespace ZombieDriveGame
 
 		void Awake()
 		{
+            moveJoyStick = GameObject.FindGameObjectWithTag("MoveJoyStick").GetComponent<VariableJoystick>();
             // Activate the pause canvas early on, so it can detect info about sound volume state
             if ( pauseCanvas )    pauseCanvas.gameObject.SetActive(true);
             GameObject car = Instantiate(cars[CarSelectionHandler.instance.carindex]);
@@ -159,7 +160,6 @@ namespace ZombieDriveGame
 		/// </summary>
 		void Start()
 		{
-            moveJoyStick = GameObject.FindGameObjectWithTag("MoveJoyStick").GetComponent<VariableJoystick>();
             // If the camera is not assigned yet, assign it and set the camera holder too
             if (cameraObject == null)
             {
@@ -392,7 +392,6 @@ namespace ZombieDriveGame
                 if (groundObject && playerObject.transform.position.z > groundObject.position.z + groundRepeatDistance) groundObject.position += Vector3.forward * groundRepeatDistance;
             }
         }
-
         /// <summary>
 		/// Updates the timer text, and checks if time is up
 		/// </summary>

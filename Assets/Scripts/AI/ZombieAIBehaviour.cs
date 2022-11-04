@@ -12,23 +12,24 @@ public class ZombieAIBehaviour : AIBehaviour
 
     public override void Attack(ZombieController zombie, AIDetector detector)
     {
-        Debug.Log("Attacking");
+        //Debug.Log("Attacking");
         //Damage player;
     }
     public override void Run(ZombieController zombie, AIDetector detector)
     {
-        if (TargetInFOV(zombie, detector))
-        {
-            Debug.Log("Running");
+        //if (TargetInFOV(zombie, detector))
+        //{
+        //    //Debug.Log("Running");
 
-            var lookPos = detector.Target.transform.position - transform.position;
-            lookPos.y = 0;
-            var rotation = Quaternion.LookRotation(lookPos);
-            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * damping);
+        //}
 
-            Vector3 targetPos = new Vector3(detector.Target.transform.position.x, transform.position.y, detector.Target.transform.position.z);
-            zombie.transform.position = Vector3.MoveTowards(zombie.transform.position, targetPos, moveSpeed * Time.deltaTime);
-        }
+        var lookPos = detector.Target.transform.position - transform.position;
+        lookPos.y = 0;
+        var rotation = Quaternion.LookRotation(lookPos);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * damping);
+
+        Vector3 targetPos = new Vector3(detector.Target.transform.position.x, transform.position.y, detector.Target.transform.position.z);
+        zombie.transform.position = Vector3.MoveTowards(zombie.transform.position, targetPos, moveSpeed * Time.deltaTime);
     }
 
     private bool TargetInFOV(ZombieController zombie, AIDetector detector)

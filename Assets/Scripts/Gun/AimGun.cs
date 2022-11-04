@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(ObjectPool))]
 public class AimGun : MonoBehaviour
@@ -11,7 +12,9 @@ public class AimGun : MonoBehaviour
 
     public TurretData turretData;
 
-    private bool canShoot = true;
+    public bool canShoot = true;
+    public int bulletCount = 20;
+    public int remainingBulletCount = 25;
     private Collider[] tankColliders;
     private float currentDelay = 0;
 
@@ -22,6 +25,13 @@ public class AimGun : MonoBehaviour
     public UnityEvent OnShoot, OnCantShoot;
     public UnityEvent<float> OnReloading;
     VariableJoystick aimJoyStick;
+
+    public static AimGun aimGun;
+
+    private void Awake()
+    {
+        aimGun = this;
+    }
     void Start()
     {
         bulletPool = GetComponent<ObjectPool>();
@@ -29,10 +39,15 @@ public class AimGun : MonoBehaviour
         OnReloading?.Invoke(currentDelay);
 
         tankColliders = GetComponentsInParent<Collider>();
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+            return;
         aimJoyStick = GameObject.FindGameObjectWithTag("AimJoyStick").GetComponent<VariableJoystick>();
     }
     void Update()
     {
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+            return;
+
         float angle = Mathf.Atan2(aimJoyStick.Direction.x , aimJoyStick.Direction.y) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(new Vector3(0, angle, 0));
 
@@ -52,11 +67,34 @@ public class AimGun : MonoBehaviour
         }
     }
 
+    public void RestoreGunAmmo()
+    {
+        remainingBulletCount = 25;
+        ReloadAmmoHandler.ammoHandler.UpdateBulletCount();
+    }
+
+    public void Reload()
+    {
+        if((remainingBulletCount / 20) > 0)
+        {
+            bulletCount += 20;
+            bulletCount = Mathf.Clamp(bulletCount, 0, 20);
+            remainingBulletCount -= 20;
+        }
+        else
+        {
+            bulletCount = remainingBulletCount;
+            remainingBulletCount = 0;
+        }
+    }
+
     public void Shoot()
     {
         Debug.Log("Shoot");
-        if (canShoot)
+        if (canShoot & bulletCount > 0)
         {
+            bulletCount--;
+            ReloadAmmoHandler.ammoHandler.UpdateBulletCount();
             canShoot = false;
             currentDelay = turretData.reloadDelay;
 

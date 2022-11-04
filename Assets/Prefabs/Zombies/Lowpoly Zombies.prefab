@@ -2782,7 +2782,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zombieAIBehaviour: {fileID: 343756138196121168}
-  hitEffect: {fileID: 1337644722559327897}
   maxInt: 6
   zombies:
   - {fileID: 6194253111106559094}
@@ -2835,6 +2834,8 @@ MonoBehaviour:
   - {fileID: 2154537659134924318}
   - {fileID: 3017797487453285715}
   - {fileID: 2537352490395804883}
+  touchFunction: ChangeScore
+  functionParameter: 100
 --- !u!114 &343756138196121168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2849,7 +2850,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fieldOfVisionForShooting: 60
   damping: 10
-  moveSpeed: 10
+  moveSpeed: 5
   damage: 50
 --- !u!136 &2594493365649752776
 CapsuleCollider:
@@ -2879,7 +2880,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &7734293680618276404
 MonoBehaviour:
@@ -2952,9 +2953,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 2594493365649752778}
-        m_TargetAssemblyTypeName: ZombieController, Assembly-CSharp
-        m_MethodName: Hit
+      - m_Target: {fileID: 4240350281320621449}
+        m_TargetAssemblyTypeName: ZombieDriveGame.ZDGTouchable, Assembly-CSharp
+        m_MethodName: SpawnHitEffect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7444,7 +7445,7 @@ MonoBehaviour:
     m_Bits: 512
   visibilityLayer:
     serializedVersion: 2
-    m_Bits: 640
+    m_Bits: 512
   <TargetVisible>k__BackingField: 0
 --- !u!1 &7937605608384111787
 GameObject:
@@ -9155,6 +9156,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 71440895068364818, guid: 7c292fe22a6aa9b4ab68f91912c11b43, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 162869456350455550, guid: 7c292fe22a6aa9b4ab68f91912c11b43, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 162869456483071002, guid: 7c292fe22a6aa9b4ab68f91912c11b43, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 162869468335524828, guid: 7c292fe22a6aa9b4ab68f91912c11b43, type: 3}
+      propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:

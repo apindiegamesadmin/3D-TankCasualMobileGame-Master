@@ -64,10 +64,10 @@ namespace ZombieDriveGame
                 }
 
                 // If there is a touch effect, create it
-                if (touchEffect) Instantiate(touchEffect, transform.position, transform.rotation);
-                
+                SpawnHitEffect();
+
                 // Remove the object from the game
-                if(objectToDestroy != null)
+                if (objectToDestroy != null)
                 {
                     Destroy(this.transform.parent.gameObject);
                 }
@@ -76,6 +76,11 @@ namespace ZombieDriveGame
                     Destroy(gameObject);
                 }
             }
+        }
+
+        public void SpawnHitEffect()
+        {
+            if (touchEffect) Instantiate(touchEffect, transform.position, transform.rotation);
         }
     }
 }
