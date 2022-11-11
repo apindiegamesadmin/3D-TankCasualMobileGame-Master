@@ -7,6 +7,18 @@ public class ZombieController : MonoBehaviour
 {
     [SerializeField] ZombieAIBehaviour zombieAIBehaviour;
 
+    [Tooltip("The function that runs when this object is touched by the target")]
+    public string attackFunction = "ChangeScore";
+
+    [Tooltip("The parameter that will be passed with the function")]
+    public float attackPoint = 100;
+
+    [Tooltip("The target object that the function will play from")]
+    public string functionTarget = "GameController";
+
+    [Tooltip("The effect that is created at the location of this object when it is touched")]
+    public Transform touchEffect;
+
     public int maxInt;
     public GameObject[] zombies;
     [Tooltip("The function that runs when this object is touched by the target")]
@@ -55,6 +67,7 @@ public class ZombieController : MonoBehaviour
             float distance = Vector3.Distance(transform.position, target.position);
             if (Mathf.Abs(distance) <= 5f)
             {
+                //Attack();
                 animator.SetBool("Attack", true);
                 animator.SetBool("Run", false);
                 zombieAIBehaviour.Attack(this, aiDetector);
@@ -73,6 +86,17 @@ public class ZombieController : MonoBehaviour
         {
             animator.SetBool("Attack", false);
             animator.SetBool("Run", false);
+        }
+    }
+
+    void Attack()
+    {
+        // Check that we have a target tag and function name before running
+        if (attackFunction != string.Empty)
+        {
+            // Run the function
+            GameObject.FindGameObjectWithTag("GameController").SendMessage(attackFunction, attackPoint);
+            if (touchEffect) Instantiate(touchEffect, transform.position, transform.rotation);
         }
     }
 

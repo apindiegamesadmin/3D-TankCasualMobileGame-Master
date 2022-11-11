@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(ObjectPool))]
 public class AimGun : MonoBehaviour
 {
+    public MeshRenderer carMesh;
+    public Texture carTextureNoGlass;
     public List<Transform> turretBarrels;
     public ParticleSystem muzzleFlash;
 
@@ -93,6 +95,7 @@ public class AimGun : MonoBehaviour
         Debug.Log("Shoot");
         if (canShoot & bulletCount > 0)
         {
+            carMesh.material.SetTexture("_MainTex", carTextureNoGlass);
             bulletCount--;
             ReloadAmmoHandler.ammoHandler.UpdateBulletCount();
             canShoot = false;

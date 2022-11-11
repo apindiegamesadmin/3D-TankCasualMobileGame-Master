@@ -24,7 +24,7 @@ namespace ZombieDriveGame
 	public class ZDGLoadLevel : MonoBehaviour
 	{
         [Tooltip("How many seconds to wait before loading a level or URL")]
-        public float loadDelay = 1;
+        public float loadDelay = 0;
 
         [Tooltip("The name of the URL to be loaded")]
         public string urlName = "";
@@ -141,6 +141,7 @@ namespace ZombieDriveGame
 		/// </summary>
 		void ExecuteRestartLevel()
 		{
+			Time.timeScale = 1;
 			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 		}
 	}

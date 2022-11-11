@@ -160,6 +160,7 @@ namespace ZombieDriveGame
 		/// </summary>
 		void Start()
 		{
+            coins = PlayerPrefs.GetInt("Coins");
             // If the camera is not assigned yet, assign it and set the camera holder too
             if (cameraObject == null)
             {
@@ -258,17 +259,17 @@ namespace ZombieDriveGame
 				//If the game is over, listen for the Restart and MainMenu buttons
 				if ( isGameOver == true )
 				{
-					//The jump button restarts the game
-					if ( Input.GetButtonDown(confirmButton) )
-					{
-						Restart();
-					}
+					////The jump button restarts the game
+					//if ( Input.GetButtonDown(confirmButton) )
+					//{
+					//	Restart();
+					//}
 					
-					//The pause button goes to the main menu
-					if ( Input.GetButtonDown(pauseButton) )
-					{
-						MainMenu();
-					}
+					////The pause button goes to the main menu
+					//if ( Input.GetButtonDown(pauseButton) )
+					//{
+					//	MainMenu();
+					//}
 				}
 				else
 				{
@@ -371,12 +372,12 @@ namespace ZombieDriveGame
                         }
                     }
 
-					//Toggle pause/unpause in the game
-					if ( Input.GetButtonDown(pauseButton) )
-					{
-						if ( isPaused == true )    Unpause();
-						else    Pause(true);
-					}
+					////Toggle pause/unpause in the game
+					//if (Input.GetButtonDown(pauseButton))
+					//{
+					//	if ( isPaused == true )    Unpause();
+					//	else    Pause(true);
+					//}
 				}
 			}
 		}
@@ -405,7 +406,7 @@ namespace ZombieDriveGame
                 // Time's up!
                 if ( playerObject.fuel <= 0 )
                 {
-                    StartCoroutine(GameOver(0));
+                    StartCoroutine(GameOver(2));
                 }
             }
             
@@ -554,7 +555,7 @@ namespace ZombieDriveGame
         {
             // Change the score value
             coins += changeValue;
-
+            PlayerPrefs.SetInt("Coins", coins);
             //Update the score text
             if (coinsText)
             {

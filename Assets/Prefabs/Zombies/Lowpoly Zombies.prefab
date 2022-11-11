@@ -2782,6 +2782,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zombieAIBehaviour: {fileID: 343756138196121168}
+  touchTargetTag: Player
+  attackFunction: ChangeHealth
+  attackPoint: -10
+  functionTarget: GameController
+  touchEffect: {fileID: 0}
   maxInt: 6
   zombies:
   - {fileID: 6194253111106559094}

@@ -9,7 +9,7 @@ public class CarSelectionManager : MonoBehaviour
 {
     public Car[] cars;
     public Text selectText;
-    public TextMeshProUGUI coinAmountText;
+    public TextMeshProUGUI[] coinAmountText;
     public GameObject price;
 
     static int index = 0;
@@ -18,7 +18,11 @@ public class CarSelectionManager : MonoBehaviour
 
     void Start()
     {
-        //cars[index].car.SetActive(true);
+        coinAmount = PlayerPrefs.GetInt("Coins",2000);
+        foreach(TextMeshProUGUI text in coinAmountText)
+        {
+            text.text = coinAmount.ToString();
+        }
         RestoreSelectedCar();
         selectText.text = "Selected";
     }
@@ -86,18 +90,22 @@ public class CarSelectionManager : MonoBehaviour
 
     public void ConfirmCar()
     {
-        selectedIndex = index;
-        CarSelectionHandler.instance.carindex = index;
         if (cars[index].owned)
         {
             selectText.text = "Selected";
+            selectedIndex = index;
+            CarSelectionHandler.instance.carindex = index;
         }
-        else
+        else if (coinAmount >= cars[index].price)
         {
             selectText.gameObject.SetActive(true);
             price.SetActive(false);
             //Reduce coin amount
             coinAmount -= cars[index].price;
+            foreach (TextMeshProUGUI text in coinAmountText)
+            {
+                text.text = coinAmount.ToString();
+            }
             cars[index].owned = true;
             selectText.text = "Select";
         }
