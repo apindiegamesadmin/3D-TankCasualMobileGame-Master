@@ -31,14 +31,17 @@ public class ZombieController : MonoBehaviour
 
     AIDetector aiDetector;
     Animator animator;
+    bool isDead;
+
     private void Awake()
     {
         aiDetector = GetComponentInChildren<AIDetector>();
         animator = GetComponent<Animator>();
+        isDead = false;
     }
     void Start()
     {
-        foreach(GameObject zombie in zombies)
+        foreach (GameObject zombie in zombies)
         {
             zombie.SetActive(false);
         }
@@ -51,7 +54,7 @@ public class ZombieController : MonoBehaviour
         animator.SetFloat("RunIndex", index);
     }
 
-    private void LateUpdate()
+    private void FixedUpdate()
     {
         if (aiDetector.TargetVisible && aiDetector.Target != null && target == null)
         {
@@ -60,29 +63,46 @@ public class ZombieController : MonoBehaviour
             animator.SetBool("Attack", false);
             animator.SetBool("Run", true);
             zombieAIBehaviour.Run(this, aiDetector);
+            Debug.Log("Running! 1");
         }
-        else if(target != null)
+        else if (target != null)
         {
             target = aiDetector.Target;
             float distance = Vector3.Distance(transform.position, target.position);
-            if (Mathf.Abs(distance) <= 5f)
+            if (Mathf.Abs(distance) <= 10f)
+            {
+                //Attack();
+                animator.SetBool("Attack", false);
+                animator.SetBool("Run", true);
+                Debug.Log("Running! 2");
+                zombieAIBehaviour.Attack(this, aiDetector);
+            }
+            else if (Mathf.Abs(distance) <= 4f)
             {
                 //Attack();
                 animator.SetBool("Attack", true);
                 animator.SetBool("Run", false);
+                Debug.Log("Running! 2");
                 zombieAIBehaviour.Attack(this, aiDetector);
             }
             else
             {
                 animator.SetBool("Attack", false);
                 animator.SetBool("Run", true);
+                Debug.Log("Running! 3");
                 zombieAIBehaviour.Run(this, aiDetector);
             }
             animator.SetBool("Attack", false);
             animator.SetBool("Run", true);
             zombieAIBehaviour.Run(this, aiDetector);
         }
-        else 
+        // else if (isDead)
+        // {
+        //     animator.SetBool("Attack", false);
+        //     animator.SetBool("Run", false);
+        //     target = null;
+        // }
+        else
         {
             animator.SetBool("Attack", false);
             animator.SetBool("Run", false);
@@ -102,7 +122,10 @@ public class ZombieController : MonoBehaviour
 
     public void Die()
     {
+        isDead = true;
+        zombieAIBehaviour.moveSpeed = 0f;
         animator.SetTrigger("Die");
+        Debug.Log("Die!!!!!");
         float index = Random.Range(0.0f, 1.0f);
         animator.SetFloat("DeadIndex", index);
 

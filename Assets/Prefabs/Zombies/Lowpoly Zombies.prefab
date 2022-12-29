@@ -2782,7 +2782,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zombieAIBehaviour: {fileID: 343756138196121168}
-  touchTargetTag: Player
   attackFunction: ChangeHealth
   attackPoint: -10
   functionTarget: GameController
@@ -2854,8 +2853,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fieldOfVisionForShooting: 60
-  damping: 10
-  moveSpeed: 5
+  damping: 1
+  moveSpeed: 1
   damage: 50
 --- !u!136 &2594493365649752776
 CapsuleCollider:
