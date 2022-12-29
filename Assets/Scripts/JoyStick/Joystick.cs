@@ -81,8 +81,7 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
     public bool Shooting()
     {
         float distance = Vector2.Distance(handle.transform.position, background.transform.position);
-        Debug.Log(distance);
-        if(distance > 100)
+        if (distance > 100)
         {
             return true;
         }

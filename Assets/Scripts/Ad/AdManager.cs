@@ -65,7 +65,7 @@ public class AdManager : MonoBehaviour
 #if UNITY_ANDROID
         string adUnitId = "ca-app-pub-3940256099942544/6300978111";
 #else
-            string adUnitId = "unexpected_platform";
+        string adUnitId = "unexpected_platform";
 #endif
 
         BannerDestory();
@@ -104,7 +104,7 @@ public class AdManager : MonoBehaviour
     }
     public void BannerDestory()
     {
-        if(bannerView != null)
+        if (bannerView != null)
         {
             bannerView.Destroy();
         }
@@ -142,11 +142,11 @@ public class AdManager : MonoBehaviour
         {
             StartCoroutine(DelayBeforeEvent(OnFailedToShowInAd));
         };
-         // Called when the ad is closed.
-         this.interstitial.OnAdClosed += (sender, args) =>
-        {
-            StartCoroutine(DelayBeforeEvent(OnCloseInAd));
-        };
+        // Called when the ad is closed.
+        this.interstitial.OnAdClosed += (sender, args) =>
+       {
+           StartCoroutine(DelayBeforeEvent(OnCloseInAd));
+       };
 
 
         // Create an empty ad request.
@@ -161,7 +161,7 @@ public class AdManager : MonoBehaviour
     }
     public void InterstitialDestroy()
     {
-        if(interstitial != null)
+        if (interstitial != null)
         {
             this.interstitial.Destroy();
         }
@@ -173,7 +173,7 @@ public class AdManager : MonoBehaviour
 #if UNITY_ANDROID
         adUnitId = "ca-app-pub-3940256099942544/5224354917";
 #else
-            adUnitId = "unexpected_platform";
+        adUnitId = "unexpected_platform";
 #endif
 
         this.rewardedAd = new RewardedAd(adUnitId);
