@@ -15,11 +15,12 @@ public class CarSelectionManager : MonoBehaviour
     static int index = 0;
     int selectedIndex = 0;
     int coinAmount;
+    public static int carCounter = 0;
 
     void Start()
     {
-        coinAmount = PlayerPrefs.GetInt("Coins",2000);
-        foreach(TextMeshProUGUI text in coinAmountText)
+        coinAmount = PlayerPrefs.GetInt("Coins", 2000);
+        foreach (TextMeshProUGUI text in coinAmountText)
         {
             text.text = coinAmount.ToString();
         }
@@ -45,7 +46,7 @@ public class CarSelectionManager : MonoBehaviour
 
         if (left)
         {
-            if(index == 0)
+            if (index == 0)
             {
                 index = cars.Length - 1;
             }
@@ -107,6 +108,7 @@ public class CarSelectionManager : MonoBehaviour
                 text.text = coinAmount.ToString();
             }
             cars[index].owned = true;
+            carCounter += 1;
             selectText.text = "Select";
         }
     }
