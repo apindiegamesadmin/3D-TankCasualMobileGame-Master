@@ -436,7 +436,7 @@ namespace ZombieDriveGame
             if (playerObject)
             {
                 // Damage the player
-                ChangeHealth(-streetEdgeDamage);
+                ChangeHealth(-(Time.time / streetEdgeDamage));
 
                 // If the player went too far to the right, bounce it back to the left
                 if (playerObject.transform.position.x > streetEdge)
@@ -548,6 +548,15 @@ namespace ZombieDriveGame
                 increaseCount -= levelUpEveryScore;
 
                 LevelUp();
+            }
+            CheckScorePoint(score);
+        }
+
+        public void CheckScorePoint(int score)
+        {
+            if (score >= 2000)
+            {
+                Debug.Log("You have unlocked second achievement.");
             }
         }
 
